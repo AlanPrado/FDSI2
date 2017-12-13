@@ -12377,7 +12377,7 @@ Para isso crie uma coluna chamada de EXITSn_hourly e insira a diferença entre a
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
 
 <span class="k">def</span> <span class="nf">get_hourly_exits</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn_hourly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn_hourly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 
 <span class="n">turnstile_data_regular</span> <span class="o">=</span> <span class="n">get_hourly_exits</span><span class="p">(</span><span class="n">turnstile_data_regular</span><span class="p">)</span>
@@ -12437,7 +12437,7 @@ Para isso crie uma coluna chamada de EXITSn_hourly e insira a diferença entre a
       <td>2098317</td>
       <td>REGULAR</td>
       <td>1</td>
-      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>1</th>
@@ -12580,7 +12580,7 @@ Por favor, devolva a hora como um número inteiro.</p>
       <td>2098317</td>
       <td>REGULAR</td>
       <td>1</td>
-      <td>1</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>1</th>
@@ -12881,7 +12881,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <span class="k">def</span> <span class="nf">num_rainy_days</span><span class="p">(</span><span class="n">weather_data</span><span class="p">):</span>
     <span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    SELECT COUNT(DATEn) n</span>
+<span class="s2">    SELECT COUNT(DISTINCT DATEn) n</span>
 <span class="s2">    FROM weather_data</span>
 <span class="s2">    WHERE cast(rain as integer) = 1</span>
 <span class="s2">    &quot;&quot;&quot;</span>
@@ -12907,7 +12907,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>44104</pre>
+<pre>10</pre>
 </div>
 
 </div>
@@ -13569,7 +13569,7 @@ Finished download file C:\Users\Alan_\Desktop\hadoop\subway\data\turnstile_data_
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
@@ -13598,7 +13598,6 @@ Finished download file C:\Users\Alan_\Desktop\hadoop\subway\data\turnstile_data_
 <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">turnstile_data_sorted</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">+</span> <span class="s1">&#39;/mapper_result.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 <span class="n">mapper</span><span class="p">()</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -13619,10 +13618,12 @@ Finished download file C:\Users\Alan_\Desktop\hadoop\subway\data\turnstile_data_
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">reducer</span><span class="p">():</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">reducer</span><span class="p">():</span>
     <span class="n">oldKey</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -13643,8 +13644,6 @@ Finished download file C:\Users\Alan_\Desktop\hadoop\subway\data\turnstile_data_
 <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">+</span> <span class="s1">&#39;/mapper_result.txt&#39;</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">+</span> <span class="s1">&#39;/reducer_result.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 <span class="n">reducer</span><span class="p">()</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
 </div>
