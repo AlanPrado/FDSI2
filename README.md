@@ -18,7 +18,6 @@ The project is divided in three parts:
 ## Structure
 
 ```
-│   .gitignore
 │   analyzing-subway-data-ndfdsi.html   # This is a html that shows the project execution
 │   analyzing-subway-data-ndfdsi.ipynb  # This file is a jupyter notebook and contains all the source code and instructions
 ├───data # This directory will be generated will all raw data 
